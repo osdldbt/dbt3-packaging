@@ -20,12 +20,47 @@ Fair Use TPC Benchmark(TM) H kit
 %setup -q -n dbt3-%{version}
 
 %build
-PKG_CONFIG_PATH="/usr/pgsql-%{pgversion}/lib/pkgconfig" PATH=$PATH:/usr/pgsql-%{pgversion}/bin cmake -DCMAKE_INSTALL_PREFIX=%{buildroot}/%{installpath}/..
+PKG_CONFIG_PATH="/usr/pgsql-%{pgversion}/lib/pkgconfig" PATH=$PATH:/usr/pgsql-%{pgversion}/bin cmake -DCMAKE_INSTALL_PREFIX=%{buildroot}/%{installpath}/.. .
 make
 
 %install
 %{__install} -d %{buildroot}/%{installpath}
 make install
+mkdir -p %{buildroot}/usr/share/dbt3
+
+# dbgen patches
+cp patches/dbt3-TPC-H_Tools_v3.0.0-postgresql.diff %{buildroot}/usr/share/dbt3/
+cp patches/dbt3-TPC-H_Tools_v3.0.0-stdout.diff %{buildroot}/usr/share/dbt3/
+cp patches/dbt3-TPC-H_Tools_v3.0.0-mysql.diff %{buildroot}/usr/share/dbt3/
+cp patches/dbt3-TPC-H_Tools_v3.0.0-virtuoso.diff %{buildroot}/usr/share/dbt3/
+cp patches/dbt3-TPC-H_Tools_v3.0.0-monetdb.diff %{buildroot}/usr/share/dbt3/
+
+# postgresql query templates
+mkdir -p %{buildroot}/usr/share/dbt3/pgsql
+cp queries/pgsql/1.sql %{buildroot}/usr/share/dbt3/pgsql/
+cp queries/pgsql/2.sql %{buildroot}/usr/share/dbt3/pgsql/
+cp queries/pgsql/3.sql %{buildroot}/usr/share/dbt3/pgsql/
+cp queries/pgsql/4.sql %{buildroot}/usr/share/dbt3/pgsql/
+cp queries/pgsql/5.sql %{buildroot}/usr/share/dbt3/pgsql/
+cp queries/pgsql/6.sql %{buildroot}/usr/share/dbt3/pgsql/
+cp queries/pgsql/7.sql %{buildroot}/usr/share/dbt3/pgsql/
+cp queries/pgsql/8.sql %{buildroot}/usr/share/dbt3/pgsql/
+cp queries/pgsql/9.sql %{buildroot}/usr/share/dbt3/pgsql/
+cp queries/pgsql/10.sql %{buildroot}/usr/share/dbt3/pgsql/
+cp queries/pgsql/11.sql %{buildroot}/usr/share/dbt3/pgsql/
+cp queries/pgsql/12.sql %{buildroot}/usr/share/dbt3/pgsql/
+cp queries/pgsql/13.sql %{buildroot}/usr/share/dbt3/pgsql/
+cp queries/pgsql/14.sql %{buildroot}/usr/share/dbt3/pgsql/
+cp queries/pgsql/15.sql %{buildroot}/usr/share/dbt3/pgsql/
+cp queries/pgsql/16.sql %{buildroot}/usr/share/dbt3/pgsql/
+cp queries/pgsql/17.sql %{buildroot}/usr/share/dbt3/pgsql/
+cp queries/pgsql/18.sql %{buildroot}/usr/share/dbt3/pgsql/
+cp queries/pgsql/19.sql %{buildroot}/usr/share/dbt3/pgsql/
+cp queries/pgsql/20.sql %{buildroot}/usr/share/dbt3/pgsql/
+cp queries/pgsql/21.sql %{buildroot}/usr/share/dbt3/pgsql/
+cp queries/pgsql/22.sql %{buildroot}/usr/share/dbt3/pgsql/
+cp queries/pgsql/explain-analyze.sql %{buildroot}/usr/share/dbt3/pgsql/
+
 
 %files
 %{installpath}/dbt3-compare-results
@@ -103,6 +138,34 @@ make install
 %{installpath}/dbt3-virtuoso-start-db
 %{installpath}/dbt3-virtuoso-stop-db
 %{installpath}/dbt3-virtuoso-time-statistics
+/usr/share/dbt3/dbt3-TPC-H_Tools_v3.0.0-postgresql.diff
+/usr/share/dbt3/dbt3-TPC-H_Tools_v3.0.0-stdout.diff
+/usr/share/dbt3/dbt3-TPC-H_Tools_v3.0.0-mysql.diff
+/usr/share/dbt3/dbt3-TPC-H_Tools_v3.0.0-virtuoso.diff
+/usr/share/dbt3/dbt3-TPC-H_Tools_v3.0.0-monetdb.diff
+/usr/share/dbt3/pgsql/1.sql
+/usr/share/dbt3/pgsql/2.sql
+/usr/share/dbt3/pgsql/3.sql
+/usr/share/dbt3/pgsql/4.sql
+/usr/share/dbt3/pgsql/5.sql
+/usr/share/dbt3/pgsql/6.sql
+/usr/share/dbt3/pgsql/7.sql
+/usr/share/dbt3/pgsql/8.sql
+/usr/share/dbt3/pgsql/9.sql
+/usr/share/dbt3/pgsql/10.sql
+/usr/share/dbt3/pgsql/11.sql
+/usr/share/dbt3/pgsql/12.sql
+/usr/share/dbt3/pgsql/13.sql
+/usr/share/dbt3/pgsql/14.sql
+/usr/share/dbt3/pgsql/15.sql
+/usr/share/dbt3/pgsql/16.sql
+/usr/share/dbt3/pgsql/17.sql
+/usr/share/dbt3/pgsql/18.sql
+/usr/share/dbt3/pgsql/19.sql
+/usr/share/dbt3/pgsql/20.sql
+/usr/share/dbt3/pgsql/21.sql
+/usr/share/dbt3/pgsql/22.sql
+/usr/share/dbt3/pgsql/explain-analyze.sql
 
 %changelog
 * Fri Oct 15 2021 Julien Tachoires <julmon@gmail.com> - master-1
